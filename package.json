@@ -1,0 +1,28 @@
+{
+  "name": "lesson-management",
+  "version": "1.0.0",
+  "description": "Build process for the Lesson Management WordPress plugin.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --minify",
+    "build:js": "esbuild src/index.js --bundle --outfile=assets/js/app.js --minify --jsx-factory=wp.element.createElement --jsx-fragment=wp.element.Fragment --external:react --external:react-dom --external:@wordpress/element --loader:.js=jsx",
+    "watch": "concurrently \"npm:watch:*\"",
+    "watch:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --watch",
+    "watch:js": "esbuild src/index.js --bundle --outfile=assets/js/app.js --watch --jsx-factory=wp.element.createElement --jsx-fragment=wp.element.Fragment --external:react --external:react-dom --external:@wordpress/element --loader:.js=jsx",
+    "plugin-zip": "npm run build && rm -f lesson-management.zip && bestzip lesson-management.zip admin/ assets/ includes/ lesson-management.php readme.txt"
+  },
+  "keywords": [
+    "wordpress",
+    "react",
+    "tailwind"
+  ],
+  "author": "Swimming Ideas, LLC",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "bestzip": "^2.2.1",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.25.10",
+    "tailwindcss": "^3.4.1"
+  }
+}
